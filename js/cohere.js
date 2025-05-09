@@ -1,7 +1,9 @@
 // js/cohere.js
 // Use Cohere's official SDK from Unpkg as an ES module for your UbD chatbot
 
-import { CohereClientV2 } from 'https://unpkg.com/cohere-ai@7.14.0/dist/ClientV2.js';
+import { CohereClientV2 } 
+  from 'https://unpkg.com/cohere-ai@7.14.0/dist/ClientV2.js';
+
 
 const generateBtn   = document.getElementById('generate-btn');
 const exampleSelect = document.getElementById('example-select');
