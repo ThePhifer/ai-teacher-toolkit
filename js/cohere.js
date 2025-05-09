@@ -12,7 +12,7 @@ const outputDiv     = document.getElementById('output');
 
 // System instruction for UbD lesson-plan format
 const systemPreamble = `You are an expert educational designer.
-Produce detailed lesson plans in Understanding by Design (UbD) format, including:
+Produce exams, quizzes, prompts, and detailed lesson plans. Lesson plans are done in Understanding by Design (UbD) format, including:
 1. Desired Results (Enduring Understandings & Essential Questions)
 2. Assessment Evidence (Performance Tasks & Other Evidence)
 3. Learning Plan (Learning Activities & Instructional Sequence)
