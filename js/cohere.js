@@ -1,47 +1,59 @@
 // js/cohere.js
+// Use Cohere's official SDK from Unpkg as an ES module for your UbD chatbot
 
-const { CohereClient } = await import('https://cdn.skypack.dev/cohere-ai@7.14.0');
+import { CohereClientV2 } from 'https://unpkg.com/cohere-ai@7.14.0/dist/ClientV2.js';
 
-const generateBtn    = document.getElementById('generate-btn');
+const generateBtn   = document.getElementById('generate-btn');
 const exampleSelect = document.getElementById('example-select');
 const customPrompt  = document.getElementById('custom-prompt');
 const outputDiv     = document.getElementById('output');
 
-// Initialize the client
-const client = new CohereClient({
-  token: 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk'
-});
+// Initialize Cohere client
+const client = new CohereClientV2({ token: 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk' });
 
+// System prompt for UbD lesson plans
 const systemMessage = {
   role: 'system',
   content: `You are an expert educational designer.
-Produce detailed lesson plans in Understanding by Design (UbD) format…`
+Produce detailed lesson plans in Understanding by Design (UbD) format, including:
+1. Desired Results (Enduring Understandings & Essential Questions)
+2. Assessment Evidence (Performance Tasks & Other Evidence)
+3. Learning Plan (Learning Activities & Instructional Sequence)
+Make it clear, structured, and teacher-friendly.`
 };
 
-const chatHistory = [systemMessage];
+const chatHistory = [ systemMessage ];
 
 async function sendPrompt(promptText) {
+  if (!promptText.trim()) throw new Error('Please enter a prompt.');
   chatHistory.push({ role: 'user', content: promptText });
-  const resp = await client.chat({
-    model: 'command-a-03-2025',
-    messages: chatHistory,
+
+  const response = await client.chat({
+    model:       'command-a-03-2025',
+    messages:    chatHistory,
     temperature: 0.3,
-    max_tokens: 800
+    max_tokens:  800
   });
-  const reply = resp.message.content;
-  chatHistory.push({ role: 'assistant', content: reply });
-  return reply;
+
+  const assistant = response.message?.content;
+  if (!assistant) throw new Error('Empty response from Cohere');
+
+  chatHistory.push({ role: 'assistant', content: assistant });
+  return assistant;
 }
 
 generateBtn.addEventListener('click', async () => {
-  const p = customPrompt.value.trim() || exampleSelect.value;
-  if (!p) return outputDiv.textContent = 'Enter a prompt.';
-  outputDiv.textContent = 'Generating…';
-  generateBtn.disabled = true;
+  const prompt = customPrompt.value.trim() || exampleSelect.value;
+  if (!prompt) {
+    outputDiv.textContent = 'Please enter or select a prompt.';
+    return;
+  }
+  outputDiv.textContent    = 'Generating…';
+  generateBtn.disabled     = true;
   try {
-    outputDiv.textContent = await sendPrompt(p);
-  } catch (e) {
-    outputDiv.textContent = `Error: ${e.message}`;
+    outputDiv.textContent = await sendPrompt(prompt);
+  } catch (err) {
+    outputDiv.textContent = `Error: ${err.message}`;
   } finally {
     generateBtn.disabled = false;
   }
