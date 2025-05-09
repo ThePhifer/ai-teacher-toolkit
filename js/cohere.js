@@ -1,12 +1,11 @@
-\// js/cohere.js
+// js/cohere.js
 // Plain fetch-based Cohere Chat integration for your UbD lesson-plan chatbot
 
 const API_ENDPOINT = 'https://api.cohere.ai/v1/chat';
 const API_KEY      = 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk'; // ← replace with your Cohere API key
 
 const generateBtn   = document.getElementById('generate-btn');
-const exampleSelect = document.getElementById('example-select');
-const customPrompt  = document.getElementById('custom-prompt');
+const exampleSelect = document.getElementById('example-select');\const customPrompt  = document.getElementById('custom-prompt');
 const outputDiv     = document.getElementById('output');
 
 // System instruction for UbD lesson-plan format
@@ -21,7 +20,7 @@ Make it clear, structured, and teacher-friendly.`;
 const chatHistory = [];
 
 /**
- * Strip common Markdown formatting and trim whitespace
+ * Strip all Markdown symbols: headings (#), bold/italic (*, **), list bullets (-, >, +), code, and separators
  * @param {string} text
  * @returns {string}
  */
@@ -30,20 +29,19 @@ function stripMarkdown(text) {
     // Remove code fences and inline code
     .replace(/```[\s\S]*?```/g, '')
     .replace(/`([^`]+)`/g, '$1')
-    // Remove Markdown headings and any leading #
+    // Remove Markdown headings (#)
     .replace(/^\s*#{1,6}\s*/gm, '')
-    // Remove bold/italic markers
-    .replace(/\*\*(.*?)\*\*/g, '$1')
-    .replace(/\*(.*?)\*/g, '$1')
-    .replace(/__(.*?)__/g, '$1')
-    .replace(/_(.*?)_/g, '$1')
-    // Remove list bullets or blockquote markers at start of line
+    // Remove list bullets and blockquote markers at start
     .replace(/^\s*[-*>+]\s*/gm, '')
     // Remove horizontal rules
     .replace(/^\s*[-]{3,}\s*$/gm, '')
-    // Collapse multiple blank lines into one
+    // Remove all asterisks
+    .replace(/\*/g, '')
+    // Remove any remaining Markdown underscores or tildes
+    .replace(/[_~]/g, '')
+    // Collapse multiple blank lines
     .replace(/\n{2,}/g, '\n\n')
-    // Trim each line and then the whole text
+    // Trim each line and remove empty lines
     .split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
@@ -53,13 +51,11 @@ function stripMarkdown(text) {
 
 /**
  * Send a prompt to Cohere Chat endpoint
- * @param {string} promptText - The user's prompt
- * @returns {Promise<string>} - The assistant's reply
+ * @param {string} promptText
+ * @returns {Promise<string>} assistant reply
  */
 async function sendPrompt(promptText) {
-  if (!promptText.trim()) {
-    throw new Error('Please enter a prompt.');
-  }
+  if (!promptText.trim()) throw new Error('Please enter a prompt.');
 
   // Record user turn
   chatHistory.push({ role: 'User', message: promptText });
@@ -76,9 +72,9 @@ async function sendPrompt(promptText) {
   console.log('→ Cohere payload:', payload);
 
   const response = await fetch(API_ENDPOINT, {
-    method:  'POST',
+    method: 'POST',
     headers: {
-      'Content-Type':  'application/json',
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${API_KEY}`
     },
     body: JSON.stringify(payload)
@@ -91,7 +87,6 @@ async function sendPrompt(promptText) {
 
   if (!response.ok) {
     const errText = await response.text();
-    console.error('Cohere error body:', errText);
     throw new Error(`Cohere API error ${response.status}: ${errText}`);
   }
 
@@ -99,25 +94,20 @@ async function sendPrompt(promptText) {
   console.log('← Cohere response:', data);
 
   const assistantMsg = data.text;
-  if (!assistantMsg || !assistantMsg.trim()) {
-    throw new Error('Empty response from Cohere.');
-  }
+  if (!assistantMsg || !assistantMsg.trim()) throw new Error('Empty response from Cohere.');
 
   // Record assistant turn
   chatHistory.push({ role: 'Chatbot', message: assistantMsg });
   return assistantMsg;
 }
 
-// Wire up the Generate button
+// Generate button handler
 generateBtn.addEventListener('click', async () => {
   const prompt = customPrompt.value.trim() || exampleSelect.value;
-  if (!prompt) {
-    outputDiv.textContent = 'Please enter or select a prompt.';
-    return;
-  }
+  if (!prompt) return outputDiv.textContent = 'Please enter or select a prompt.';
 
-  outputDiv.textContent    = 'Generating…';
-  generateBtn.disabled     = true;
+  outputDiv.textContent = 'Generating…';
+  generateBtn.disabled = true;
 
   try {
     const rawReply = await sendPrompt(prompt);
