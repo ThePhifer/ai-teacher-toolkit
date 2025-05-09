@@ -36,7 +36,7 @@ async function sendPrompt(promptText) {
     chat_history: chatHistory,
     message:      promptText,    // ← must include for at least 1 token
     temperature:  0.3,
-    max_tokens:   800
+    max_tokens:   1600
   };
 
   console.log('→ Cohere payload:', payload);
