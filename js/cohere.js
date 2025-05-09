@@ -12,7 +12,7 @@ const outputDiv     = document.getElementById('output');
 
 // System instruction for UbD lesson-plan format
 const systemPreamble = `You are an expert educational designer.
-Produce exams, quizzes, prompts, and detailed lesson plans. Lesson plans are done in Understanding by Design (UbD) format, including:
+Produce quizzes, exams, prompts, and detailed lesson plans. Lesson plans are to be done in Understanding by Design (UbD) format, including:
 1. Desired Results (Enduring Understandings & Essential Questions)
 2. Assessment Evidence (Performance Tasks & Other Evidence)
 3. Learning Plan (Learning Activities & Instructional Sequence)
@@ -20,6 +20,21 @@ Make it clear, structured, and teacher-friendly.`;
 
 // In-memory chat history (records only USER and ASSISTANT turns)
 const chatHistory = [];
+
+/**
+ * Strip common Markdown formatting (headings, bold, separators) for plain text output
+ */
+function stripMarkdown(text) {
+  return text
+    // Remove Markdown headings (e.g., ### **Title**)
+    .replace(/^#{1,6}\s*(.*)$/gm, '$1')
+    // Remove bold markers **text**
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    // Remove horizontal rules
+    .replace(/^---$/gm, '')
+    // Trim extra whitespace
+    .trim();
+}
 
 async function sendPrompt(promptText) {
   if (!promptText.trim()) {
@@ -29,14 +44,14 @@ async function sendPrompt(promptText) {
   // Record the user turn
   chatHistory.push({ role: 'USER', message: promptText });
 
-  // Build payload—including the required `message` field
+  // Build payload—including the required `message` field and increased token limit
   const payload = {
     model:        'command-a-03-2025',
     preamble:     systemPreamble,
     chat_history: chatHistory,
     message:      promptText,    // ← must include for at least 1 token
     temperature:  0.3,
-    max_tokens:   5000
+    max_tokens:   1500
   };
 
   console.log('→ Cohere payload:', payload);
@@ -64,13 +79,13 @@ async function sendPrompt(promptText) {
   const data = await response.json();
   console.log('← Cohere response:', data);
 
-  // **PULL the assistant reply from `data.text`**
+  // The assistant reply is in data.text
   const assistantMsg = data.text;
   if (!assistantMsg || !assistantMsg.trim()) {
     throw new Error('Empty response from Cohere.');
   }
 
-  // Record and return
+  // Record assistant turn
   chatHistory.push({ role: 'ASSISTANT', message: assistantMsg });
   return assistantMsg;
 }
@@ -87,8 +102,9 @@ generateBtn.addEventListener('click', async () => {
   generateBtn.disabled     = true;
 
   try {
-    const reply = await sendPrompt(prompt);
-    outputDiv.textContent = reply;
+    const rawReply = await sendPrompt(prompt);
+    const cleanReply = stripMarkdown(rawReply);
+    outputDiv.textContent = cleanReply;
   } catch (err) {
     outputDiv.textContent = `Error: ${err.message}`;
   } finally {
