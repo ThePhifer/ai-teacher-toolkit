@@ -64,8 +64,8 @@ async function sendPrompt(promptText) {
   const data = await response.json();
   console.log('← Cohere response:', data);
 
-  // The assistant reply is in data.message
-  const assistantMsg = data.message;
+  // **PULL the assistant reply from `data.text`**
+  const assistantMsg = data.text;
   if (!assistantMsg || !assistantMsg.trim()) {
     throw new Error('Empty response from Cohere.');
   }
