@@ -1,5 +1,5 @@
 // js/cohere.js
-// Plain fetch-based Cohere Chat integration for your UbD chatbot (no bundler required)
+// Plain fetch‐based Cohere Chat integration for your UbD lesson-plan chatbot
 
 const API_ENDPOINT = 'https://api.cohere.ai/v1/chat';
 const API_KEY      = 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk'; // ← replace with your Cohere API key
@@ -26,14 +26,15 @@ async function sendPrompt(promptText) {
     throw new Error('Please enter a prompt.');
   }
 
-  // Add user turn to history
+  // Record the user turn
   chatHistory.push({ role: 'USER', message: promptText });
 
-  // Build payload for Cohere /v1/chat
+  // Build payload—including the required `message` field
   const payload = {
     model:        'command-a-03-2025',
     preamble:     systemPreamble,
     chat_history: chatHistory,
+    message:      promptText,    // ← must include for at least 1 token
     temperature:  0.3,
     max_tokens:   800
   };
@@ -41,7 +42,7 @@ async function sendPrompt(promptText) {
   console.log('→ Cohere payload:', payload);
 
   const response = await fetch(API_ENDPOINT, {
-    method: 'POST',
+    method:  'POST',
     headers: {
       'Content-Type':  'application/json',
       'Authorization': `Bearer ${API_KEY}`
@@ -69,12 +70,12 @@ async function sendPrompt(promptText) {
     throw new Error('Empty response from Cohere.');
   }
 
-  // Record assistant turn and return
+  // Record and return
   chatHistory.push({ role: 'ASSISTANT', message: assistantMsg });
   return assistantMsg;
 }
 
-// Generate button handler
+// Wire up the Generate button
 generateBtn.addEventListener('click', async () => {
   const prompt = customPrompt.value.trim() || exampleSelect.value;
   if (!prompt) {
