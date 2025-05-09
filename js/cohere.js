@@ -1,4 +1,4 @@
-// js/cohere.js
+\// js/cohere.js
 // Plain fetch-based Cohere Chat integration for your UbD lesson-plan chatbot
 
 const API_ENDPOINT = 'https://api.cohere.ai/v1/chat';
@@ -21,29 +21,33 @@ Make it clear, structured, and teacher-friendly.`;
 const chatHistory = [];
 
 /**
- * Strip common Markdown formatting for plain text output
- * Removes headings, emphasis, lists, code blocks, and other markers
+ * Strip common Markdown formatting and trim whitespace
+ * @param {string} text
+ * @returns {string}
  */
 function stripMarkdown(text) {
   return text
-    // remove code fences
+    // Remove code fences and inline code
     .replace(/```[\s\S]*?```/g, '')
-    // remove inline code
     .replace(/`([^`]+)`/g, '$1')
-    // remove headings
-    .replace(/^#{1,6}\s*(.*)$/gm, '$1')
-    // remove blockquotes and lists (-, *, +, >) at start
-    .replace(/^[>\-\*\+]\s*(.*)$/gm, '$1')
-    // remove bold/italic emphasis
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/__([^_]+)__/g, '$1')
-    .replace(/_([^_]+)_/g, '$1')
-    // remove strikethrough
-    .replace(/~~([^~]+)~~/g, '$1')
-    // remove horizontal rules
-    .replace(/^[-]{3,}$/gm, '')
-    // trim extra whitespace
+    // Remove Markdown headings and any leading #
+    .replace(/^\s*#{1,6}\s*/gm, '')
+    // Remove bold/italic markers
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/__(.*?)__/g, '$1')
+    .replace(/_(.*?)_/g, '$1')
+    // Remove list bullets or blockquote markers at start of line
+    .replace(/^\s*[-*>+]\s*/gm, '')
+    // Remove horizontal rules
+    .replace(/^\s*[-]{3,}\s*$/gm, '')
+    // Collapse multiple blank lines into one
+    .replace(/\n{2,}/g, '\n\n')
+    // Trim each line and then the whole text
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join('\n')
     .trim();
 }
 
