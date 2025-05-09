@@ -1,17 +1,15 @@
 // js/cohere.js
-// Use Cohere's official SDK from Unpkg as an ES module for your UbD chatbot
+// Use Cohere's TypeScript/JavaScript SDK from Skypack as an ES module for your UbD chatbot
 
-import { CohereClientV2 } 
-  from 'https://unpkg.com/cohere-ai@7.14.0/dist/ClientV2.js';
-
+import { CohereClient } from 'https://cdn.skypack.dev/cohere-ai@7.17.1';
 
 const generateBtn   = document.getElementById('generate-btn');
 const exampleSelect = document.getElementById('example-select');
 const customPrompt  = document.getElementById('custom-prompt');
 const outputDiv     = document.getElementById('output');
 
-// Initialize Cohere client
-const client = new CohereClientV2({ token: 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk' });
+// Initialize Cohere client (default export supports chat and generate)
+const client = new CohereClient({ token: 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk' });
 
 // System prompt for UbD lesson plans
 const systemMessage = {
@@ -30,6 +28,7 @@ async function sendPrompt(promptText) {
   if (!promptText.trim()) throw new Error('Please enter a prompt.');
   chatHistory.push({ role: 'user', content: promptText });
 
+  // Call Cohere chat endpoint
   const response = await client.chat({
     model:       'command-a-03-2025',
     messages:    chatHistory,
