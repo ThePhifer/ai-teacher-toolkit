@@ -1,58 +1,93 @@
 // js/cohere.js
-// Use Cohere's TypeScript/JavaScript SDK from Skypack as an ES module for your UbD chatbot
+// Plain fetch-based Cohere Chat integration for your UbD chatbot (no bundler required)
 
-import { CohereClient } from 'https://cdn.skypack.dev/cohere-ai@7.17.1';
+const API_ENDPOINT = 'https://api.cohere.ai/v1/chat';
+const API_KEY      = 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk'; // ← replace with your Cohere API key
 
+// UI elements
 const generateBtn   = document.getElementById('generate-btn');
 const exampleSelect = document.getElementById('example-select');
 const customPrompt  = document.getElementById('custom-prompt');
 const outputDiv     = document.getElementById('output');
 
-// Initialize Cohere client (default export supports chat and generate)
-const client = new CohereClient({ token: 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk' });
-
-// System prompt for UbD lesson plans
-const systemMessage = {
-  role: 'system',
-  content: `You are an expert educational designer.
+// System instruction for UbD lesson-plan format
+const systemPreamble = `You are an expert educational designer.
 Produce detailed lesson plans in Understanding by Design (UbD) format, including:
 1. Desired Results (Enduring Understandings & Essential Questions)
 2. Assessment Evidence (Performance Tasks & Other Evidence)
 3. Learning Plan (Learning Activities & Instructional Sequence)
-Make it clear, structured, and teacher-friendly.`
-};
+Make it clear, structured, and teacher-friendly.`;
 
-const chatHistory = [ systemMessage ];
+// In-memory chat history (records only USER and ASSISTANT turns)
+const chatHistory = [];
 
 async function sendPrompt(promptText) {
-  if (!promptText.trim()) throw new Error('Please enter a prompt.');
-  chatHistory.push({ role: 'user', content: promptText });
+  if (!promptText.trim()) {
+    throw new Error('Please enter a prompt.');
+  }
 
-  // Call Cohere chat endpoint
-  const response = await client.chat({
-    model:       'command-a-03-2025',
-    messages:    chatHistory,
-    temperature: 0.3,
-    max_tokens:  800
+  // Add user turn to history
+  chatHistory.push({ role: 'USER', message: promptText });
+
+  // Build payload for Cohere /v1/chat
+  const payload = {
+    model:        'command-a-03-2025',
+    preamble:     systemPreamble,
+    chat_history: chatHistory,
+    temperature:  0.3,
+    max_tokens:   800
+  };
+
+  console.log('→ Cohere payload:', payload);
+
+  const response = await fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type':  'application/json',
+      'Authorization': `Bearer ${API_KEY}`
+    },
+    body: JSON.stringify(payload)
   });
 
-  const assistant = response.message?.content;
-  if (!assistant) throw new Error('Empty response from Cohere');
+  if (response.status === 429) {
+    const ra = response.headers.get('Retry-After') || '60';
+    throw new Error(`Rate limit exceeded. Try again in ${ra} seconds.`);
+  }
 
-  chatHistory.push({ role: 'assistant', content: assistant });
-  return assistant;
+  if (!response.ok) {
+    const errText = await response.text();
+    console.error('Cohere error body:', errText);
+    throw new Error(`Cohere API error ${response.status}: ${errText}`);
+  }
+
+  const data = await response.json();
+  console.log('← Cohere response:', data);
+
+  // The assistant reply is in data.message
+  const assistantMsg = data.message;
+  if (!assistantMsg || !assistantMsg.trim()) {
+    throw new Error('Empty response from Cohere.');
+  }
+
+  // Record assistant turn and return
+  chatHistory.push({ role: 'ASSISTANT', message: assistantMsg });
+  return assistantMsg;
 }
 
+// Generate button handler
 generateBtn.addEventListener('click', async () => {
   const prompt = customPrompt.value.trim() || exampleSelect.value;
   if (!prompt) {
     outputDiv.textContent = 'Please enter or select a prompt.';
     return;
   }
+
   outputDiv.textContent    = 'Generating…';
   generateBtn.disabled     = true;
+
   try {
-    outputDiv.textContent = await sendPrompt(prompt);
+    const reply = await sendPrompt(prompt);
+    outputDiv.textContent = reply;
   } catch (err) {
     outputDiv.textContent = `Error: ${err.message}`;
   } finally {
