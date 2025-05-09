@@ -1,5 +1,5 @@
 // js/cohere.js
-// Plain fetch‑based Cohere Chat integration for your UbD lesson‑plan chatbot
+// Plain fetch-based Cohere Chat integration for your UbD lesson-plan chatbot
 
 const API_ENDPOINT = 'https://api.cohere.ai/v1/chat';
 const API_KEY      = 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk'; // ← replace with your Cohere API key
@@ -21,6 +21,33 @@ Make it clear, structured, and teacher-friendly.`;
 const chatHistory = [];
 
 /**
+ * Strip common Markdown formatting for plain text output
+ * Removes headings, emphasis, lists, code blocks, and other markers
+ */
+function stripMarkdown(text) {
+  return text
+    // remove code fences
+    .replace(/```[\s\S]*?```/g, '')
+    // remove inline code
+    .replace(/`([^`]+)`/g, '$1')
+    // remove headings
+    .replace(/^#{1,6}\s*(.*)$/gm, '$1')
+    // remove blockquotes and lists (-, *, +, >) at start
+    .replace(/^[>\-\*\+]\s*(.*)$/gm, '$1')
+    // remove bold/italic emphasis
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    // remove strikethrough
+    .replace(/~~([^~]+)~~/g, '$1')
+    // remove horizontal rules
+    .replace(/^[-]{3,}$/gm, '')
+    // trim extra whitespace
+    .trim();
+}
+
+/**
  * Send a prompt to Cohere Chat endpoint
  * @param {string} promptText - The user's prompt
  * @returns {Promise<string>} - The assistant's reply
@@ -30,7 +57,7 @@ async function sendPrompt(promptText) {
     throw new Error('Please enter a prompt.');
   }
 
-  // Record user turn with correct role
+  // Record user turn
   chatHistory.push({ role: 'User', message: promptText });
 
   const payload = {
@@ -67,18 +94,17 @@ async function sendPrompt(promptText) {
   const data = await response.json();
   console.log('← Cohere response:', data);
 
-  // Extract assistant message
   const assistantMsg = data.text;
   if (!assistantMsg || !assistantMsg.trim()) {
     throw new Error('Empty response from Cohere.');
   }
 
-  // Record assistant turn with correct role
+  // Record assistant turn
   chatHistory.push({ role: 'Chatbot', message: assistantMsg });
   return assistantMsg;
 }
 
-// Wire up Generate button
+// Wire up the Generate button
 generateBtn.addEventListener('click', async () => {
   const prompt = customPrompt.value.trim() || exampleSelect.value;
   if (!prompt) {
@@ -90,8 +116,9 @@ generateBtn.addEventListener('click', async () => {
   generateBtn.disabled     = true;
 
   try {
-    const reply = await sendPrompt(prompt);
-    outputDiv.textContent = reply;
+    const rawReply = await sendPrompt(prompt);
+    const cleanReply = stripMarkdown(rawReply);
+    outputDiv.textContent = cleanReply;
   } catch (err) {
     outputDiv.textContent = `Error: ${err.message}`;
   } finally {
