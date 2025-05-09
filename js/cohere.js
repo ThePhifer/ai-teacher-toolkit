@@ -5,7 +5,8 @@ const API_ENDPOINT = 'https://api.cohere.ai/v1/chat';
 const API_KEY      = 'KmuG70nThcv3XVePPkSFguSdd7L5AG7IffscPeqk'; // ← replace with your Cohere API key
 
 const generateBtn   = document.getElementById('generate-btn');
-const exampleSelect = document.getElementById('example-select');\const customPrompt  = document.getElementById('custom-prompt');
+const exampleSelect = document.getElementById('example-select');
+const customPrompt  = document.getElementById('custom-prompt');
 const outputDiv     = document.getElementById('output');
 
 // System instruction for UbD lesson-plan format
