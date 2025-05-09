@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Try It Out - AI Toolkit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              50: '#f0f4fa',
+              100: '#d9e2f5',
+              200: '#b3c5eb',
+              300: '#8da8e0',
+              400: '#668bd6',
+              500: '#406ecc',
+              600: '#3358a3',
+              700: '#26427a',
+              800: '#1a2c52',
+              900: '#0d1629',
+              950: '#002060', // Main navy
+            },
+            red: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626', // Main red
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+              950: '#450a0a',
+            },
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-white text-gray-800">
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="index.html" class="flex-shrink-0 flex items-center">
+            <span class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-navy-950 to-red-600">
+              AI Toolkit
+            </span>
+          </a>
+        </div>
+
+        <!-- Desktop navigation -->
+        <div class="hidden md:flex md:items-center md:space-x-4">
+          <a href="what-is-ai.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            What Is AI?
+          </a>
+          <a href="ai-in-the-classroom.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            AI in the Classroom
+          </a>
+          <a href="subject-guides.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Subject Guides
+          </a>
+          <a href="ethics.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Ethics
+          </a>
+          <a href="try-it-out.html" class="nav-link px-3 py-2 text-sm font-medium text-navy-950 bg-gray-100 rounded-md transition-colors relative group active">
+            Try It Out
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-navy-950 to-red-600"></span>
+          </a>
+          <a href="resources.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Resources
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="flex md:hidden items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-navy-950 hover:bg-gray-100 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="what-is-ai.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          What Is AI?
+        </a>
+        <a href="ai-in-the-classroom.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          AI in the Classroom
+        </a>
+        <a href="subject-guides.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Subject Guides
+        </a>
+        <a href="ethics.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Ethics
+        </a>
+        <a href="try-it-out.html" class="block px-3 py-2 rounded-md text-base font-medium text-navy-950 bg-gray-100">
+          Try It Out
+        </a>
+        <a href="resources.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Resources
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- Animated Code Snippet Placeholder -->
+      <div class="relative aspect-video bg-white rounded-xl overflow-hidden border border-gray-200 shadow-md">
+        <!-- Code snippet background -->
+        <div class="absolute inset-0 bg-gray-50 p-6 font-mono text-sm text-gray-600 overflow-hidden">
+          <div class="text-red-600">// AI Mini-Projects</div>
+          <div class="mt-2">
+            <span class="text-navy-600">import</span> <span class="text-gray-700">{"{"}</span>{" "}
+            <span class="text-red-500">AIModel</span> <span class="text-gray-700">{"}"}</span>{" "}
+            <span class="text-navy-600">from</span> <span class="text-green-600">'ai-toolkit'</span>
+            <span class="text-gray-700">;</span>
+          </div>
+          <div class="mt-1">
+            <span class="text-navy-600">async function</span> <span class="text-blue-600">runProject</span>
+            <span class="text-gray-700">()</span> <span class="text-gray-700">{"{"}</span>
+          </div>
+          <div class="mt-1 ml-4">
+            <span class="text-navy-600">const</span> <span class="text-red-500">model</span>{" "}
+            <span class="text-gray-700">=</span> <span class="text-navy-600">new</span>{" "}
+            <span class="text-blue-600">AIModel</span>
+            <span class="text-gray-700">(</span>
+            <span class="text-green-600">'gpt-4'</span>
+            <span class="text-gray-700">);</span>
+          </div>
+          <div class="mt-1 ml-4">
+            <span class="text-navy-600">const</span> <span class="text-red-500">result</span>{" "}
+            <span class="text-gray-700">=</span> <span class="text-navy-600">await</span>{" "}
+            <span class="text-red-500">model</span>
+            <span class="text-gray-700">.</span>
+            <span class="text-blue-600">generate</span>
+            <span class="text-gray-700">(</span>
+            <span class="text-green-600">'Create a learning activity'</span>
+            <span class="text-gray-700">);</span>
+          </div>
+          <div class="mt-1 ml-4">
+            <span class="text-navy-600">return</span> <span class="text-red-500">result</span>
+            <span class="text-gray-700">;</span>
+          </div>
+          <div class="mt-1">
+            <span class="text-gray-700">{"}"}</span>
+          </div>
+          <div class="mt-2">
+            <span class="text-navy-600">runProject</span>
+            <span class="text-gray-700">()</span>
+            <span class="text-gray-700">.</span>
+            <span class="text-blue-600">then</span>
+            <span class="text-gray-700">(</span>
+            <span class="text-navy-600">data</span> <span class="text-navy-600">=&gt;</span>{" "}
+            <span class="text-blue-600">console</span>
+            <span class="text-gray-700">.</span>
+            <span class="text-blue-600">log</span>
+            <span class="text-gray-700">(</span>
+            <span class="text-navy-600">data</span>
+            <span class="text-gray-700">));</span>
+          </div>
+        </div>
+
+        <!-- Animated cursor -->
+        <div class="absolute bottom-6 right-6 h-4 w-2 bg-red-600 animate-blink"></div>
+      </div>
+
+      <!-- Text Content -->
+      <div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-navy-950 to-red-600 neon-text">
+          Try It Out
+        </h1>
+        <p class="text-lg text-gray-700 mb-4">
+          Explore our collection of hands-on mini-projects that demonstrate the practical applications of AI in
+          educational settings.
+        </p>
+        <p class="text-lg text-gray-700 mb-6">
+          These projects are designed to be accessible for educators with varying levels of technical expertise, from
+          no-code solutions to more advanced implementations.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button class="bg-gradient-to-r from-navy-950 to-red-600 hover:from-navy-800 hover:to-red-500 shadow-md hover:shadow-lg text-white font-bold py-2 px-4 rounded flex items-center transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            Start Coding
+          </button>
+          <button class="border border-gray-300 text-gray-700 hover:bg-gray-50 font-bold py-2 px-4 rounded transition-colors">
+            Filter Projects
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geometric Divider -->
+  <div class="relative h-24 overflow-hidden bg-white">
+    <svg class="absolute top-0 w-full h-full text-gray-100" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M1200 120L0 120 598.97 5.28 1200 120z" class="fill-current"></path>
+    </svg>
+  </div>
+
+  <!-- Projects Grid Section -->
+  <section class="py-16 px-4 max-w-7xl mx-auto bg-gray-50">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-navy-950 to-red-600 neon-text">
+      Explore AI Mini-Projects
+    </h2>
+    <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-12 text-center">
+      Discover hands-on projects that demonstrate AI concepts and applications in educational settings.
+    </p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Project Card 1 -->
+      <div class="h-[450px] bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg card-hover flex flex-col">
+        <div class="p-6 flex flex-col h-full">
+          <!-- Image placeholder -->
+          <div class="mb-4 h-40 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center text-6xl">
+            😊
+          </div>
+
+          <!-- Difficulty tag -->
+          <div class="inline-block px-3 py-1 mb-3 text-xs font-medium rounded-full bg-green-50 text-green-600">
+            Beginner • 1-2 hours
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold mb-2 text-navy-950">
+            Sentiment Analyzer
+          </h3>
+
+          <!-- Description -->
+          <div class="flex-grow mb-4">
+            <p class="text-gray-600">Create a tool that analyzes the sentiment of student feedback to identify areas for improvement.</p>
+          </div>
+
+          <!-- View Details button -->
+          <a href="try-it-out/sentiment-analyzer.html" class="mt-auto">
+            <button class="w-full group bg-white hover:bg-gray-50 border border-gray-300 transition-all duration-300 text-navy-950 font-bold py-2 px-4 rounded flex items-center justify-center">
+              <span>View Details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 2 -->
+      <div class="h-[450px] bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg card-hover flex flex-col">
+        <div class="p-6 flex flex-col h-full">
+          <div class="mb-4 h-40 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center text-6xl">
+            ❓
+          </div>
+          <div class="inline-block px-3 py-1 mb-3 text-xs font-medium rounded-full bg-yellow-50 text-yellow-600">
+            Intermediate • 2-3 hours
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-navy-950">
+            AI Quiz Generator
+          </h3>
+          <div class="flex-grow mb-4">
+            <p class="text-gray-600">Build a system that automatically generates quizzes from educational content, saving teachers valuable time.</p>
+          </div>
+          <a href="try-it-out/quiz-generator.html" class="mt-auto">
+            <button class="w-full group bg-white hover:bg-gray-50 border border-gray-300 transition-all duration-300 text-navy-950 font-bold py-2 px-4 rounded flex items-center justify-center">
+              <span>View Details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 3 -->
+      <div class="h-[450px] bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg card-hover flex flex-col">
+        <div class="p-6 flex flex-col h-full">
+          <div class="mb-4 h-40 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center text-6xl">
+            🌍
+          </div>
+          <div class="inline-block px-3 py-1 mb-3 text-xs font-medium rounded-full bg-green-50 text-green-600">
+            Beginner • 1-2 hours
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-navy-950">
+            Classroom Translator
+          </h3>
+          <div class="flex-grow mb-4">
+            <p class="text-gray-600">Develop a tool that translates educational materials into multiple languages for diverse classrooms.</p>
+          </div>
+          <a href="try-it-out/language-translator.html" class="mt-auto">
+            <button class="w-full group bg-white hover:bg-gray-50 border border-gray-300 transition-all duration-300 text-navy-950 font-bold py-2 px-4 rounded flex items-center justify-center">
+              <span>View Details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 4 -->
+      <div class="h-[450px] bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg card-hover flex flex-col">
+        <div class="p-6 flex flex-col h-full">
+          <div class="mb-4 h-40 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center text-6xl">
+            🔄
+          </div>
+          <div class="inline-block px-3 py-1 mb-3 text-xs font-medium rounded-full bg-yellow-50 text-yellow-600">
+            Intermediate • 2-3 hours
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-navy-950">
+            AI Concept Mapper
+          </h3>
+          <div class="flex-grow mb-4">
+            <p class="text-gray-600">Create a visual concept mapping tool that helps students connect ideas and build knowledge networks.</p>
+          </div>
+          <a href="try-it-out/concept-mapper.html" class="mt-auto">
+            <button class="w-full group bg-white hover:bg-gray-50 border border-gray-300 transition-all duration-300 text-navy-950 font-bold py-2 px-4 rounded flex items-center justify-center">
+              <span>View Details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 5 -->
+      <div class="h-[450px] bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg card-hover flex flex-col">
+        <div class="p-6 flex flex-col h-full">
+          <div class="mb-4 h-40 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center text-6xl">
+            ✍️
+          </div>
+          <div class="inline-block px-3 py-1 mb-3 text-xs font-medium rounded-full bg-red-50 text-red-600">
+            Advanced • 3-4 hours
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-navy-950">
+            Student Writing Assistant
+          </h3>
+          <div class="flex-grow mb-4">
+            <p class="text-gray-600">Build an AI writing assistant that provides constructive feedback on student essays without doing the work for them.</p>
+          </div>
+          <a href="try-it-out/writing-assistant.html" class="mt-auto">
+            <button class="w-full group bg-white hover:bg-gray-50 border border-gray-300 transition-all duration-300 text-navy-950 font-bold py-2 px-4 rounded flex items-center justify-center">
+              <span>View Details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 6 -->
+      <div class="h-[450px] bg-white border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg card-hover flex flex-col">
+        <div class="p-6 flex flex-col h-full">
+          <div class="mb-4 h-40 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center text-6xl">
+            🧮
+          </div>
+          <div class="inline-block px-3 py-1 mb-3 text-xs font-medium rounded-full bg-red-50 text-red-600">
+            Advanced • 3-4 hours
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-navy-950">
+            Step-by-Step Math Solver
+          </h3>
+          <div class="flex-grow mb-4">
+            <p class="text-gray-600">Develop a tool that not only solves math problems but explains the reasoning behind each step for better learning.</p>
+          </div>
+          <a href="try-it-out/math-solver.html" class="mt-auto">
+            <button class="w-full group bg-white hover:bg-gray-50 border border-gray-300 transition-all duration-300 text-navy-950 font-bold py-2 px-4 rounded flex items-center justify-center">
+              <span>View Details</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Geometric Divider -->
+  <div class="relative h-24 overflow-hidden bg-gray-50">
+    <svg class="absolute bottom-0 w-full h-full text-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M1200 0L0 0 598.97 114.72 1200 0z" class="fill-current"></path>
+    </svg>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white py-8 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <p class="text-gray-600 text-sm">© <span id="current-year"></span> AI Toolkit. All rights reserved.</p>
+        </div>
+
+        <div class="flex space-x-4">
+          <!-- Social Icons (same as index.html) -->
+          <a href="#" class="text-gray-500 hover:text-navy-950 transition-colors p-2 rounded-full hover:bg-gray-100" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+            </svg>
+          </a>
+          <!-- More social icons... -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
