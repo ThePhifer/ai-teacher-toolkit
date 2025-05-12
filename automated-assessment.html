@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Assessment Tools - AI Toolkit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              50: '#f0f4fa',
+              100: '#d9e2f5',
+              200: '#b3c5eb',
+              300: '#8da8e0',
+              400: '#668bd6',
+              500: '#3f54c2',
+              600: '#2f3bb4',
+              700: '#1f23a5',
+              800: '#0f0a96',
+              900: '#000387',
+              950: '#000074'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-white text-gray-800">
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="index.html" class="flex-shrink-0 flex items-center">
+            <span class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-navy-950 to-red-600">
+              AI Toolkit
+            </span>
+          </a>
+        </div>
+        <div class="hidden md:flex md:items-center md:space-x-4">
+          <a href="what-is-ai.html" class="text-base font-medium text-gray-700 hover:text-navy-950 rounded-md px-3 py-2 transition-colors">What Is AI?</a>
+          <a href="try-it-out.html" class="text-base font-medium text-gray-700 hover:text-navy-950 rounded-md px-3 py-2 transition-colors">Try It Out</a>
+          <a href="ethics.html" class="text-base font-medium text-gray-700 hover:text-navy-950 rounded-md px-3 py-2 transition-colors">Ethics</a>
+          <a href="automated-assessment.html" class="text-base font-medium text-navy-950 bg-gray-100 rounded-md px-3 py-2">Automated Assessment</a>
+          <a href="resources.html" class="text-base font-medium text-gray-700 hover:text-navy-950 rounded-md px-3 py-2 transition-colors">Resources</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-bold text-navy-950 mb-8">Automated Assessment Tools</h1>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 table-auto">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/gradescope-logo.png" alt="Gradescope Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Gradescope</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Automates grading for handwritten, typed, and multiple-choice assignments using AI-powered handwriting recognition and rubric-based scoring, complete with detailed analytics and flagging for human review.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/cograder-logo.png" alt="CoGrader Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">CoGrader</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              A free, rubric-based AI essay grader that imports custom or standards-aligned rubrics to instantly assess essays and generate personalized feedback closely aligned with expert human grading.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/essaygrader-logo.png" alt="EssayGrader.ai Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">EssayGrader.ai</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Provides consistent, rubric-based scoring for essays at scale, evaluating coherence, prompt adherence, grammar, and spelling through an advanced NLP engine with instant results.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/gradewrite-logo.png" alt="GradeWrite.AI Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">GradeWrite.AI</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Auto-checks essay submissions for word count, AI-generated content, and rubric adherence, flagging discrepancies early and enabling teachers to focus on high-value, personalized feedback.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/writable-logo.png" alt="Writable Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Writable</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Employs a human-in-the-loop model with ChatGPT to draft comments and preliminary grades for student writing; teachers review and finalize, ensuring meaningful feedback at scale.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/essaycheck-logo.png" alt="EssayCheck.ai Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">EssayCheck.ai</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Delivers rapid essay scoring (under 90 seconds) with detailed insights on structure, style, and alignment to prompts, ideal for quick turnaround on writing assignments.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/zipgrade-logo.png" alt="ZipGrade Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">ZipGrade</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              A smartphone-based multiple-choice grading app that scans answer sheets via camera and provides instant scores, item analysis reports, and class performance insights.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/magicschool-logo.png" alt="MagicSchool.ai Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">MagicSchool.ai</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Generates and grades customized multiple-choice quizzes aligned to readings or standards, offering instant scoring and detailed question analytics for formative assessment.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/teachshare-logo.png" alt="TeachShare Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">TeachShare</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              Quickly builds diagnostic, formative, or summative multiple-choice assessments aligned to standards or skills, complete with answer keys and auto-scoring features.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <img class="h-12 w-12 rounded-md" src="images/musely-logo.png" alt="Musely Logo">
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Musely</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-700">
+              A free online platform supporting multiple question types (MC, T/F, short answer, essay) with automatic grading and a dashboard for performance analytics and reporting.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-50 py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-gray-500 text-sm">© 2025 AI Toolkit. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
