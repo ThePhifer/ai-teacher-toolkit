@@ -49,19 +49,73 @@
 </head>
 <body class="min-h-screen bg-white text-gray-800 flex flex-col">
 
-  <!-- Navbar -->
-  <nav class="bg-white shadow">
+ <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
-          <a href="/" class="text-2xl font-bold text-navy-600">AI Toolkit</a>
+          <a href="index.html" class="flex-shrink-0 flex items-center">
+            <span class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-navy-950 to-red-600">
+              AI Toolkit
+            </span>
+          </a>
         </div>
-        <div class="hidden sm:flex sm:space-x-8 sm:items-center">
-          <a href="/" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">Home</a>
-          <a href="/ai-content-generator.html" class="text-navy-600 border-b-2 border-navy-600 px-3 py-2 text-sm font-medium">Content Generator</a>
-          <a href="/resources.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">Resources</a>
-          <a href="/about.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">About</a>
+
+        <!-- Desktop navigation -->
+        <div class="hidden md:flex md:items-center md:space-x-4">
+          <a href="what-is-ai.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            What Is AI?
+          </a>
+          <a href="ai-in-the-classroom.html" class="nav-link px-3 py-2 text-sm font-medium text-navy-950 bg-gray-100 rounded-md transition-colors relative group active">
+            AI in the Classroom
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-navy-950 to-red-600"></span>
+          </a>
+          <a href="subject-guides.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Subject Guides
+          </a>
+          <a href="ethics.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Ethics
+          </a>
+          <a href="try-it-out.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Try It Out
+          </a>
+          <a href="resources.html" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-navy-950 rounded-md transition-colors relative group">
+            Resources
+          </a>
         </div>
+
+        <!-- Mobile menu button -->
+        <div class="flex md:hidden items-center">
+          <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-navy-950 hover:bg-gray-100 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="what-is-ai.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          What Is AI?
+        </a>
+        <a href="ai-in-the-classroom.html" class="block px-3 py-2 rounded-md text-base font-medium text-navy-950 bg-gray-100">
+          AI in the Classroom
+        </a>
+        <a href="subject-guides.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Subject Guides
+        </a>
+        <a href="ethics.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Ethics
+        </a>
+        <a href="try-it-out.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Try It Out
+        </a>
+        <a href="resources.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-navy-950 hover:bg-gray-100">
+          Resources
+        </a>
       </div>
     </div>
   </nav>
